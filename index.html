@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>وادوستان — میزبان</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --vd-blue: #2A76BE;
+  --vd-blue-deep: #1B5A99;
+  --vd-blue-tint: #EAF2FA;
+  --vd-ink: #0E1B29;
+  --vd-ink-2: #3D4F63;
+  --vd-ink-3: #7A8A9B;
+  --vd-line: #E4EAF1;
+  --vd-bg: #FFFFFF;
+  --vd-bg-soft: #F5F8FB;
+  --vd-danger: #C04545;
+  --vd-font: 'Vazirmatn', system-ui, sans-serif;
+  --vd-r-lg: 20px;
+  --vd-r-md: 14px;
+  --vd-r-sm: 10px;
+  --vd-shadow: 0 1px 2px rgba(14,27,41,.05), 0 4px 16px rgba(14,27,41,.06);
+}
+
+body {
+  background: #1a1a2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: var(--vd-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.phone-shell {
+  width: 390px;
+  height: 844px;
+  background: #fff;
+  border-radius: 44px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--vd-bg);
+  overflow: hidden;
+  direction: rtl;
+  font-family: var(--vd-font);
+  color: var(--vd-ink);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(.2,.8,.25,1);
+}
+.screen.active { transform: translateX(0); }
+.screen.slide-left { transform: translateX(-30%); }
+
+/* ── Status Bar ── */
+.status-bar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 600;
+  flex: none;
+}
+
+/* ── Page Head ── */
+.page-head { padding: 6px 20px 4px; flex: none; }
+.page-head h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.3px; }
+.page-head p { margin: 5px 0 0; font-size: 13px; color: var(--vd-ink-3); line-height: 1.7; }
+
+/* ── Search Bar ── */
+.host-search {
+  margin: 10px 20px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1.5px solid var(--vd-line);
+  background: var(--vd-bg-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  flex: none;
+  transition: border-color .15s, background .15s;
+}
+.host-search.focused { border-color: var(--vd-blue); background: #fff; }
+.host-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--vd-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vd-ink);
+  direction: rtl;
+  outline: none;
+}
+.host-search input::placeholder { color: var(--vd-ink-3); font-weight: 500; }
+.search-cancel {
+  font-size: 13px; font-weight: 800; color: var(--vd-blue);
+  border: none; background: none; cursor: pointer; font-family: var(--vd-font); white-space: nowrap;
+}
+
+/* ── Segmented ── */
+.vd-seg {
+  margin: 10px 20px 4px;
+  display: flex;
+  background: var(--vd-bg-soft);
+  border-radius: 999px;
+  padding: 4px;
+  flex: none;
+}
+.seg-item {
+  flex: 1; height: 36px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13.5px; font-weight: 600;
+  color: var(--vd-ink-3);
+  cursor: pointer;
+  transition: all .2s;
+}
+.seg-item.active {
+  background: #fff; color: var(--vd-ink);
+  font-weight: 700;
+  box-shadow: var(--vd-shadow);
+}
+
+/* ── Scrollable Area ── */
+.scroll-area { flex: 1; overflow-y: auto; padding-bottom: 80px; }
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ── Section Label ── */
+.sec-label {
+  font-size: 11px; font-weight: 800; color: var(--vd-ink-3);
+  padding: 14px 20px 6px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* ── Host Event Card ── */
+.hcard {
+  display: flex; gap: 13px;
+  padding: 14px 16px 14px 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--vd-bg-soft);
+  cursor: pointer;
+  transition: background .12s;
+}
+.hcard:active { background: var(--vd-bg-soft); }
+.hcard-img {
+  width: 64px; height: 64px; flex: none;
+  border-radius: var(--vd-r-sm);
+  overflow: hidden;
+  background: var(--vd-bg-soft);
+}
+.hcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hcard-body { flex: 1; min-width: 0; }
+.hcard-title { font-size: 14px; font-weight: 800; color: var(--vd-ink); line-height: 1.4; }
+.hcard-when { font-size: 12.5px; font-weight: 600; color: var(--vd-ink-3); margin-top: 3px; }
+.hcard-addr {
+  font-size: 11px; font-weight: 600; color: var(--vd-ink-3);
+  margin-top: 3px;
+  display: flex; align-items: center; gap: 3px;
+}
+.hcard-rating {
+  display: flex; align-items: center; gap: 3px;
+  margin-top: 4px;
+}
+.hcard-rating .star { color: #E0A52E; font-size: 12px; }
+.hcard-rating .val { font-size: 12px; font-weight: 900; color: var(--vd-ink); }
+.hcard-rating .n { font-size: 11px; font-weight: 600; color: var(--vd-ink-3); }
+.hcard-end { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex: none; }
+.status-chip {
+  font-size: 10.5px; font-weight: 800;
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+.status-chip.selling { background: rgba(44,123,80,.12); color: #2C7B50; }
+.status-chip.full { background: rgba(160,90,0,.1); color: #A05A00; }
+.status-chip.past { background: var(--vd-bg-soft); color: var(--vd-ink-3); }
+.fill-meter { font-size: 11px; font-weight: 700; color: var(--vd-ink-3); }
+
+/* ── Bottom Nav ── */
+.vd-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 76px;
+  border-top: 1px solid var(--vd-line);
+  background: rgba(255,255,255,.97);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px 12px 20px;
+  flex: none;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  font-size: 10.5px; font-weight: 500; color: var(--vd-ink-3);
+  cursor: pointer;
+  transition: color .15s;
+}
+.nav-item.active { color: var(--vd-blue); font-weight: 700; }
+
+/* ── Empty State ── */
+.host-empty {
+  text-align: center; padding: 40px 20px;
+  font-size: 14px; color: var(--vd-ink-3); font-weight: 600;
+}
+
+/* ─────────── SCREEN 2: EVENT DETAIL ─────────── */
+.detail-cover {
+  position: relative; height: 200px; flex: none;
+}
+.detail-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.detail-cover .scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,27,41,.7), transparent 55%);
+}
+.detail-back {
+  position: absolute; top: 12px; right: 16px;
+  width: 38px; height: 38px; border-radius: 999px;
+  background: rgba(255,255,255,.94);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+.detail-tt {
+  position: absolute; inset: auto 0 0 0;
+  padding: 0 20px 14px;
+  color: #fff;
+}
+.detail-tt h1 { font-size: 18px; font-weight: 900; }
+.detail-tt p { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 3px; }
+
+.hdet-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--vd-line);
+  flex: none;
+}
+.hdet-loc { display: flex; align-items: flex-start; gap: 8px; }
+.hdet-hood { font-size: 13.5px; font-weight: 800; }
+.hdet-addr { font-size: 12px; font-weight: 600; color: var(--vd-ink-3); margin-top: 2px; }
+.hdet-rating { display: flex; align-items: center; gap: 4px; }
+.hdet-rating .star { color: #E0A52E; font-size: 14px; }
+.hdet-rating .val { font-size: 13px; font-weight: 900; }
+.hdet-rating .n { font-size: 12px; font-weight: 600; color: var(--vd-ink-3); }
+
+.vd-stats {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px; padding: 12px 20px; flex: none;
+  border-bottom: 1px solid var(--vd-line);
+}
+.vd-stat {
+  border: 1px solid var(--vd-line);
+  border-radius: var(--vd-r-md);
+  padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.vd-stat .k { font-size: 10.5px; font-weight: 600; color: var(--vd-ink-3); }
+.vd-stat .v { font-size: 15px; font-weight: 800; }
+.vd-stat .v small { font-size: 10px; font-weight: 500; color: var(--vd-ink-3); margin-right: 2px; }
+
+.hdet-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--vd-line);
+  flex: none;
+}
+.hdet-tab {
+  flex: 1; height: 44px;
+  background: none; border: none;
+  font-family: var(--vd-font);
+  font-size: 13.5px; font-weight: 700; color: var(--vd-ink-3);
+  cursor: pointer;
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: color .15s;
+}
+.hdet-tab.on { color: var(--vd-blue); }
+.hdet-tab.on::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2.5px; background: var(--vd-blue); border-radius: 2px;
+}
+.tab-badge {
+  font-size: 10px; font-weight: 800;
+  background: var(--vd-danger); color: #fff;
+  padding: 2px 6px; border-radius: 999px;
+}
+
+/* ── Attendee Row ── */
+.att-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--vd-bg-soft);
+  cursor: pointer;
+}
+.att-row:active { background: var(--vd-bg-soft); }
+.att-avatar {
+  width: 38px; height: 38px; flex: none;
+  border-radius: 999px;
+  background: var(--vd-blue-tint);
+  color: var(--vd-blue-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800;
+}
+.att-body { flex: 1; min-width: 0; }
+.att-name { font-size: 14px; font-weight: 800; }
+.att-meta { font-size: 12px; color: var(--vd-ink-3); margin-top: 2px; }
+.att-amount { font-size: 13px; font-weight: 800; color: var(--vd-blue); flex: none; }
+.att-chev {
+  width: 28px; height: 28px; border-radius: 999px;
+  border: 1px solid var(--vd-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--vd-ink-3); flex: none;
+}
+
+/* ── Review Card ── */
+.hrv-card {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--vd-bg-soft);
+  cursor: pointer;
+}
+.hrv-card:active { background: var(--vd-bg-soft); }
+.hrv-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.hrv-av {
+  width: 36px; height: 36px; flex: none;
+  border-radius: 999px;
+  background: var(--vd-blue-tint); color: var(--vd-blue-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800;
+}
+.hrv-name { font-size: 13.5px; font-weight: 800; }
+.hrv-date { font-size: 11.5px; color: var(--vd-ink-3); margin-top: 2px; }
+.hrv-stars { color: #E0A52E; font-size: 13px; margin-right: auto; }
+.hrv-body {
+  font-size: 13.5px; font-weight: 600; color: var(--vd-ink-2);
+  line-height: 1.6; margin-bottom: 12px;
+}
+.hrv-foot { display: flex; align-items: center; justify-content: space-between; }
+.hrv-replied {
+  font-size: 11.5px; font-weight: 700;
+  color: #2C7B50; display: flex; align-items: center; gap: 4px;
+}
+.hrv-badge {
+  font-size: 10.5px; font-weight: 800;
+  background: rgba(192,69,69,.1); color: var(--vd-danger);
+  padding: 3px 9px; border-radius: 999px;
+}
+.hrv-cta {
+  font-size: 12.5px; font-weight: 800; color: var(--vd-blue);
+  border: 1.5px solid var(--vd-blue);
+  border-radius: 8px; padding: 5px 12px;
+  background: none; cursor: pointer; font-family: var(--vd-font);
+}
+
+/* ─────────── SCREEN 3: EARNINGS ─────────── */
+.vd-balance {
+  margin: 12px 20px 6px;
+  border-radius: var(--vd-r-lg);
+  background: linear-gradient(135deg, #2A76BE, #1B5A99);
+  color: #fff;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 4px;
+  flex: none;
+}
+.vd-balance .k { font-size: 12px; color: rgba(255,255,255,.7); font-weight: 600; }
+.vd-balance .v { font-size: 24px; font-weight: 900; letter-spacing: -0.3px; }
+.vd-balance .toman { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.6); margin-right: 5px; }
+.vd-balance .sub { font-size: 11.5px; color: rgba(255,255,255,.55); margin-top: 2px; }
+.vd-withdraw {
+  margin-top: 14px;
+  height: 44px; border: none; border-radius: 10px;
+  background: #fff; color: var(--vd-blue);
+  font-family: var(--vd-font); font-size: 14px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.vd-withdraw:active { opacity: .85; }
+
+.vd-chart {
+  margin: 4px 20px 0;
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 10px; align-items: end; height: 140px; flex: none;
+}
+.chart-col { display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+.chart-amt { font-size: 10px; font-weight: 700; color: var(--vd-ink-2); flex: none; }
+.chart-bar { width: 100%; border-radius: 6px 6px 3px 3px; background: #BFD3E8; flex: none; transition: background .2s; }
+.chart-col.now .chart-bar { background: var(--vd-blue); }
+.chart-m { font-size: 10.5px; color: var(--vd-ink-3); font-weight: 600; flex: none; }
+.chart-col.now .chart-m { color: var(--vd-blue-deep); font-weight: 800; }
+
+.earn-card {
+  display: flex; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--vd-bg-soft);
+  align-items: center;
+}
+.earn-img { width: 52px; height: 52px; flex: none; border-radius: var(--vd-r-sm); overflow: hidden; }
+.earn-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.earn-body { flex: 1; min-width: 0; }
+.earn-title { font-size: 14px; font-weight: 800; }
+.earn-meta { font-size: 12px; color: var(--vd-ink-3); margin-top: 3px; }
+.earn-amount { font-size: 13px; font-weight: 800; color: var(--vd-blue); flex: none; white-space: nowrap; }
+
+/* ─────────── SCREEN 4: PROFILE ─────────── */
+.pf-avatar-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 18px 0 6px; flex: none;
+}
+.pf-avatar {
+  width: 96px; height: 96px; position: relative;
+  border-radius: 999px;
+  background: var(--vd-blue-tint); color: var(--vd-blue-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px; font-weight: 800;
+}
+.pf-cam {
+  position: absolute; bottom: 0; left: 0;
+  width: 32px; height: 32px; border-radius: 999px;
+  background: var(--vd-ink); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid #fff; cursor: pointer;
+}
+.pf-change { font-size: 12.5px; font-weight: 700; color: var(--vd-blue); cursor: pointer; }
+.vd-field { padding: 10px 20px 0; display: flex; flex-direction: column; gap: 7px; flex: none; }
+.vd-field label { font-size: 12px; font-weight: 700; color: var(--vd-ink-2); }
+.vd-input {
+  height: 52px;
+  border: 1.5px solid var(--vd-line);
+  border-radius: var(--vd-r-md);
+  padding: 0 16px;
+  font-family: var(--vd-font); font-size: 14.5px; font-weight: 600; color: var(--vd-ink);
+  background: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  transition: border-color .15s;
+}
+.vd-input:focus { border-color: var(--vd-blue); outline: none; }
+.vd-input.readonly { background: var(--vd-bg-soft); color: var(--vd-ink-2); }
+.vd-verified {
+  font-size: 10.5px; font-weight: 700;
+  color: var(--vd-blue-deep); background: var(--vd-blue-tint);
+  padding: 3px 9px; border-radius: 999px;
+  display: flex; align-items: center; gap: 4px; white-space: nowrap;
+}
+.field-hint { font-size: 11px; color: var(--vd-ink-3); padding: 4px 20px 0; }
+.vd-save {
+  margin: 22px 20px 0;
+  height: 52px; border: none; border-radius: var(--vd-r-md);
+  background: var(--vd-blue); color: #fff;
+  font-family: var(--vd-font); font-size: 15px; font-weight: 800;
+  cursor: pointer; transition: background .15s;
+}
+.vd-save:active { background: var(--vd-blue-deep); }
+
+/* ─────────── SHEETS ─────────── */
+.sheet-overlay {
+  position: absolute; inset: 0;
+  background: rgba(14,27,41,.42);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  display: flex; align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .26s;
+}
+.sheet-overlay.open {
+  opacity: 1; pointer-events: all;
+}
+.sheet {
+  width: 100%;
+  max-height: 88%;
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  display: flex; flex-direction: column;
+  box-shadow: 0 -8px 40px rgba(14,27,41,.22);
+  transform: translateY(100%);
+  transition: transform .26s cubic-bezier(.2,.8,.25,1);
+  overflow: hidden;
+}
+.sheet-overlay.open .sheet { transform: translateY(0); }
+.sheet-grip {
+  width: 40px; height: 4px;
+  border-radius: 999px; background: var(--vd-line);
+  margin: 10px auto 0;
+  flex: none;
+}
+.sheet-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px 12px;
+  flex: none;
+  border-bottom: 1px solid var(--vd-line);
+}
+.sheet-head .t { font-size: 16px; font-weight: 800; }
+.sheet-head .x {
+  width: 34px; height: 34px; border-radius: 999px;
+  background: var(--vd-bg-soft); border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--vd-ink-2);
+}
+.sheet-body { flex: 1; overflow-y: auto; padding: 0; }
+.sheet-body::-webkit-scrollbar { display: none; }
+
+/* Attendee Sheet */
+.hap-hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid var(--vd-line);
+}
+.hap-avatar {
+  width: 64px; height: 64px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--vd-blue-tint), #D0E4F7);
+  color: var(--vd-blue-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; font-weight: 900;
+}
+.hap-name { font-size: 18px; font-weight: 900; margin-top: 10px; }
+.hap-since { font-size: 12px; color: var(--vd-ink-3); margin-top: 3px; }
+.hap-stats {
+  display: flex; width: 100%;
+  border: 1px solid var(--vd-line); border-radius: var(--vd-r-md);
+  margin-top: 16px; overflow: hidden;
+}
+.hap-stat {
+  flex: 1; padding: 10px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  border-left: 1px solid var(--vd-line);
+}
+.hap-stat:last-child { border-left: none; }
+.hap-stat .v { font-size: 20px; font-weight: 900; }
+.hap-stat .u { font-size: 11px; font-weight: 600; color: var(--vd-ink-3); margin-right: 2px; }
+.hap-stat .k { font-size: 11px; color: var(--vd-ink-3); }
+.hap-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--vd-line);
+}
+.hap-tag {
+  background: var(--vd-blue-tint); color: var(--vd-blue-deep);
+  font-size: 12px; font-weight: 800;
+  padding: 5px 12px; border-radius: 999px;
+}
+.hap-sec {
+  font-size: 11px; font-weight: 800; color: var(--vd-ink-3);
+  padding: 14px 20px 8px; letter-spacing: 0.4px; text-transform: uppercase;
+}
+.hap-ev {
+  display: flex; gap: 12px; padding: 10px 20px;
+  border-bottom: 1px solid var(--vd-bg-soft);
+  align-items: center;
+}
+.hap-ev-img { width: 46px; height: 46px; flex: none; border-radius: 8px; overflow: hidden; }
+.hap-ev-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hap-ev-title { font-size: 13px; font-weight: 800; }
+.hap-ev-meta { font-size: 11px; color: var(--vd-ink-3); margin-top: 2px; }
+.hap-ev-stars { color: #E0A52E; font-size: 12px; margin-right: auto; flex: none; }
+.hap-no-events { font-size: 13px; color: var(--vd-ink-3); padding: 20px; text-align: center; }
+
+/* Review Sheet */
+.hrv-who {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--vd-line);
+}
+.hrv-who-av {
+  width: 40px; height: 40px; flex: none; border-radius: 999px;
+  background: var(--vd-blue-tint); color: var(--vd-blue-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800;
+}
+.hrv-who-name { font-size: 14px; font-weight: 800; }
+.hrv-who-date { font-size: 12px; color: var(--vd-ink-3); margin-top: 2px; }
+.hrv-who-stars { color: #E0A52E; font-size: 14px; margin-right: auto; }
+.hrv-sheet-body-text {
+  font-size: 14px; font-weight: 600; color: var(--vd-ink-2);
+  line-height: 1.7; padding: 16px 20px;
+  border-bottom: 1px solid var(--vd-line);
+}
+.hrv-exp {
+  display: flex; gap: 12px;
+  margin: 14px 20px;
+  background: var(--vd-bg-soft); border-radius: var(--vd-r-sm);
+  padding: 10px 12px; align-items: center;
+}
+.hrv-exp-img { width: 44px; height: 44px; flex: none; border-radius: 8px; overflow: hidden; }
+.hrv-exp-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hrv-exp-title { font-size: 13px; font-weight: 800; }
+.hrv-exp-date { font-size: 11px; color: var(--vd-ink-3); margin-top: 2px; }
+.hrv-reply-label {
+  font-size: 12px; font-weight: 700; color: var(--vd-ink-3);
+  padding: 0 20px 8px;
+}
+.hrv-textarea {
+  width: calc(100% - 40px); margin: 0 20px;
+  border: 1.5px solid var(--vd-line); border-radius: var(--vd-r-md);
+  padding: 12px 14px;
+  font-family: var(--vd-font); font-size: 14px; font-weight: 600;
+  color: var(--vd-ink); resize: none; direction: rtl;
+  transition: border-color .15s;
+}
+.hrv-textarea:focus { outline: none; border-color: var(--vd-blue); }
+.hrv-send {
+  margin: 12px 20px 20px;
+  width: calc(100% - 40px); height: 50px;
+  border: none; border-radius: var(--vd-r-md);
+  background: var(--vd-blue); color: #fff;
+  font-family: var(--vd-font); font-size: 15px; font-weight: 800;
+  cursor: pointer; transition: background .15s, opacity .15s;
+}
+.hrv-send:disabled { background: #BFD3E8; cursor: not-allowed; }
+.hrv-send:not(:disabled):active { background: var(--vd-blue-deep); }
+.hrv-saved-block {
+  margin: 0 20px 8px;
+  background: var(--vd-bg-soft); border-radius: var(--vd-r-md);
+  padding: 14px 16px;
+  font-size: 14px; font-weight: 600; color: var(--vd-ink-2);
+  line-height: 1.7;
+}
+.hrv-edit-btn {
+  margin: 0 20px 20px;
+  width: calc(100% - 40px); height: 46px;
+  border: 1.5px solid var(--vd-blue); border-radius: var(--vd-r-md);
+  background: none; color: var(--vd-blue);
+  font-family: var(--vd-font); font-size: 14px; font-weight: 800;
+  cursor: pointer;
+}
+
+/* Withdraw sheet */
+.withdraw-amount {
+  text-align: center; padding: 24px 20px 14px;
+}
+.withdraw-amount .k { font-size: 13px; color: var(--vd-ink-3); font-weight: 600; }
+.withdraw-amount .v { font-size: 32px; font-weight: 900; margin-top: 4px; }
+.withdraw-amount .t { font-size: 14px; color: var(--vd-ink-3); font-weight: 600; }
+.withdraw-info {
+  margin: 0 20px;
+  background: var(--vd-bg-soft); border-radius: var(--vd-r-md);
+  padding: 14px 16px;
+  font-size: 13px; font-weight: 600; color: var(--vd-ink-2); line-height: 1.8;
+}
+.withdraw-cta {
+  margin: 16px 20px 20px;
+  width: calc(100% - 40px); height: 52px;
+  border: none; border-radius: var(--vd-r-md);
+  background: var(--vd-blue); color: #fff;
+  font-family: var(--vd-font); font-size: 15px; font-weight: 800;
+  cursor: pointer;
+}
+.withdraw-success {
+  text-align: center; padding: 20px;
+}
+.withdraw-success .ic { font-size: 40px; margin-bottom: 10px; }
+.withdraw-success .msg { font-size: 16px; font-weight: 800; color: #2C7B50; }
+.withdraw-success .sub { font-size: 13px; color: var(--vd-ink-3); margin-top: 6px; }
+
+/* SVG Icons inline */
+svg { display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- ════════ SCREEN 1: EVENTS ════════ -->
+  <div class="screen active" id="screen-events">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>۹:۴۱</span>
+      <svg width="64" height="12" viewBox="0 0 64 12" fill="none">
+        <rect x=".5" y="1.5" width="20" height="9" rx="2.5" stroke="#0E1B29" opacity=".4"/>
+        <rect x="2" y="3" width="14" height="6" rx="1.2" fill="#0E1B29"/>
+        <path d="M28 9.5a7 7 0 0 1 9 0M25.6 6.7a10.5 10.5 0 0 1 13.8 0M30.4 12l2.1-2.2A3.4 3.4 0 0 0 30.4 12z" stroke="#0E1B29" stroke-width="1.6" stroke-linecap="round" fill="#0E1B29"/>
+        <rect x="46" y="2" width="3" height="8" rx="1" fill="#0E1B29"/>
+        <rect x="51" y="0" width="3" height="10" rx="1" fill="#0E1B29"/>
+        <rect x="41" y="4.5" width="3" height="5.5" rx="1" fill="#0E1B29"/>
+        <rect x="36" y="7" width="3" height="3" rx="1" fill="#0E1B29"/>
+      </svg>
+    </div>
+
+    <!-- Page Head -->
+    <div class="page-head" id="events-head">
+      <h1>تجربه‌های من</h1>
+      <p id="events-subtitle">سلام نگار! این هفته ۳ جلسه پیش رو داری.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="host-search" id="host-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" id="search-icon"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+      <input type="text" placeholder="جستجوی تجربه یا آدرس…" id="search-input" autocomplete="off">
+      <button class="search-cancel" id="search-cancel" style="display:none">انصراف</button>
+    </div>
+
+    <!-- Content -->
+    <div id="events-content" style="flex:1;overflow:hidden;display:flex;flex-direction:column;">
+      <!-- Segmented -->
+      <div class="vd-seg" id="seg-control">
+        <div class="seg-item active" id="seg-upcoming" onclick="switchSeg('upcoming')">پیش رو</div>
+        <div class="seg-item" id="seg-past" onclick="switchSeg('past')">برگزارشده</div>
+      </div>
+      <!-- List -->
+      <div class="scroll-area" id="events-list"></div>
+    </div>
+
+    <!-- Search Results (hidden) -->
+    <div id="search-results" style="flex:1;overflow-y:auto;display:none;padding-bottom:80px;"></div>
+
+    <!-- Bottom Nav -->
+    <nav class="vd-nav">
+      <div class="nav-item active" onclick="showScreen('events')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+        <span>تجربه‌های من</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('earnings')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16.5 15h.01"/></svg>
+        <span>درآمد</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('profile')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.4 3.8-5.2 7-5.2s6 1.8 7 5.2"/></svg>
+        <span>پروفایل</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ════════ SCREEN 2: EVENT DETAIL ════════ -->
+  <div class="screen" id="screen-detail">
+    <!-- Cover -->
+    <div class="detail-cover">
+      <img src="images/pottery-painting.jpeg" id="detail-img" alt="">
+      <div class="scrim"></div>
+      <button class="detail-back" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E1B29" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6"/></svg>
+      </button>
+      <div class="detail-tt">
+        <h1 id="detail-title">سفالگری: نقاشی روی سفال</h1>
+        <p id="detail-when">پنجشنبه ۲۱ خرداد · ۱۱:۰۰ تا ۱۳:۰۰</p>
+      </div>
+    </div>
+
+    <!-- Location + Rating -->
+    <div class="hdet-meta">
+      <div class="hdet-loc">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2A76BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <div>
+          <div class="hdet-hood">محله توحید، تهران</div>
+          <div class="hdet-addr">خیابان توحید، کوچه گلستان ۳</div>
+        </div>
+      </div>
+      <div class="hdet-rating">
+        <span class="star">★</span>
+        <span class="val">۴.۸</span>
+        <span class="n">· ۶۴ نظر</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="vd-stats">
+      <div class="vd-stat"><span class="k">رزروها</span><span class="v">۹ / ۱۲</span></div>
+      <div class="vd-stat"><span class="k">درآمد این جلسه</span><span class="v">۷٬۶۵۰<small>ه.ت</small></span></div>
+      <div class="vd-stat"><span class="k">قیمت بلیت</span><span class="v">۸۵۰<small>ه.ت</small></span></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="hdet-tabs">
+      <button class="hdet-tab on" id="tab-atts" onclick="switchTab('atts')">شرکت‌کننده‌ها · ۹ نفر</button>
+      <button class="hdet-tab" id="tab-reviews" onclick="switchTab('reviews')">
+        دیدگاه‌ها · ۳
+        <span class="tab-badge" id="unanswered-badge">۲</span>
+      </button>
+    </div>
+
+    <!-- Tab content -->
+    <div class="scroll-area" id="tab-content-atts"></div>
+    <div class="scroll-area" id="tab-content-reviews" style="display:none;"></div>
+
+    <!-- Attendee Sheet -->
+    <div class="sheet-overlay" id="att-sheet-overlay" onclick="closeSheet('att')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-grip"></div>
+        <div class="sheet-head">
+          <span class="t">پروفایل شرکت‌کننده</span>
+          <button class="x" onclick="closeSheet('att')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="sheet-body" id="att-sheet-body"></div>
+      </div>
+    </div>
+
+    <!-- Review Sheet -->
+    <div class="sheet-overlay" id="rev-sheet-overlay" onclick="closeSheet('rev')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-grip"></div>
+        <div class="sheet-head">
+          <span class="t">دیدگاه شرکت‌کننده</span>
+          <button class="x" onclick="closeSheet('rev')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="sheet-body" id="rev-sheet-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SCREEN 3: EARNINGS ════════ -->
+  <div class="screen" id="screen-earnings">
+    <div class="status-bar">
+      <span>۹:۴۱</span>
+      <svg width="64" height="12" viewBox="0 0 64 12" fill="none"><rect x=".5" y="1.5" width="20" height="9" rx="2.5" stroke="#0E1B29" opacity=".4"/><rect x="2" y="3" width="14" height="6" rx="1.2" fill="#0E1B29"/><rect x="46" y="2" width="3" height="8" rx="1" fill="#0E1B29"/><rect x="51" y="0" width="3" height="10" rx="1" fill="#0E1B29"/><rect x="41" y="4.5" width="3" height="5.5" rx="1" fill="#0E1B29"/><rect x="36" y="7" width="3" height="3" rx="1" fill="#0E1B29"/></svg>
+    </div>
+    <div class="page-head"><h1>درآمد</h1></div>
+
+    <div style="flex:1;overflow-y:auto;padding-bottom:80px;">
+      <!-- Balance Card -->
+      <div class="vd-balance">
+        <span class="k">موجودی قابل برداشت</span>
+        <span class="v">۱۲٬۴۵۰٬۰۰۰<span class="toman">تومان</span></span>
+        <span class="sub">درآمد کل از ابتدا: ۸۲٬۳۰۰٬۰۰۰ تومان</span>
+        <button class="vd-withdraw" onclick="openWithdraw()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M12 6l-5 5M12 6l5 5"/></svg>
+          برداشت به حساب بانکی
+        </button>
+      </div>
+
+      <!-- Chart -->
+      <div class="sec-label">درآمد ماهانه · میلیون تومان</div>
+      <div class="vd-chart" id="earnings-chart"></div>
+
+      <!-- Breakdown -->
+      <div class="sec-label">به تفکیک تجربه</div>
+      <div id="earnings-breakdown"></div>
+    </div>
+
+    <!-- Withdraw Sheet -->
+    <div class="sheet-overlay" id="withdraw-overlay" onclick="closeSheet('withdraw')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-grip"></div>
+        <div class="sheet-head">
+          <span class="t">برداشت از حساب</span>
+          <button class="x" onclick="closeSheet('withdraw')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="sheet-body" id="withdraw-body">
+          <div id="withdraw-form">
+            <div class="withdraw-amount">
+              <div class="k">موجودی قابل برداشت</div>
+              <div class="v">۱۲٬۴۵۰٬۰۰۰</div>
+              <div class="t">تومان</div>
+            </div>
+            <div class="withdraw-info">مبلغ به شماره شبا ثبت‌شده واریز می‌شود. معمولاً ظرف ۱ تا ۲ روز کاری انجام می‌گیرد.</div>
+            <button class="withdraw-cta" onclick="doWithdraw()">تأیید و برداشت</button>
+          </div>
+          <div id="withdraw-success" style="display:none;">
+            <div class="withdraw-success">
+              <div class="ic">✅</div>
+              <div class="msg">درخواست برداشت ثبت شد!</div>
+              <div class="sub">مبلغ ۱–۲ روز کاری دیگر واریز می‌شود.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="vd-nav">
+      <div class="nav-item" onclick="showScreen('events')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+        <span>تجربه‌های من</span>
+      </div>
+      <div class="nav-item active" onclick="showScreen('earnings')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16.5 15h.01"/></svg>
+        <span>درآمد</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('profile')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.4 3.8-5.2 7-5.2s6 1.8 7 5.2"/></svg>
+        <span>پروفایل</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ════════ SCREEN 4: PROFILE ════════ -->
+  <div class="screen" id="screen-profile">
+    <div class="status-bar">
+      <span>۹:۴۱</span>
+      <svg width="64" height="12" viewBox="0 0 64 12" fill="none"><rect x=".5" y="1.5" width="20" height="9" rx="2.5" stroke="#0E1B29" opacity=".4"/><rect x="2" y="3" width="14" height="6" rx="1.2" fill="#0E1B29"/><rect x="46" y="2" width="3" height="8" rx="1" fill="#0E1B29"/><rect x="51" y="0" width="3" height="10" rx="1" fill="#0E1B29"/><rect x="41" y="4.5" width="3" height="5.5" rx="1" fill="#0E1B29"/><rect x="36" y="7" width="3" height="3" rx="1" fill="#0E1B29"/></svg>
+    </div>
+    <div class="page-head"><h1>پروفایل میزبان</h1></div>
+
+    <div style="flex:1;overflow-y:auto;padding-bottom:80px;">
+      <div class="pf-avatar-wrap">
+        <div class="pf-avatar">
+          ن
+          <div class="pf-cam">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.4"/></svg>
+          </div>
+        </div>
+        <span class="pf-change">تغییر عکس</span>
+      </div>
+
+      <div class="vd-field">
+        <label>نام و نام خانوادگی</label>
+        <input class="vd-input" type="text" value="نگار صادقی" id="pf-name">
+      </div>
+      <div class="vd-field">
+        <label>معرفی کوتاه</label>
+        <textarea class="vd-input" id="pf-bio" style="height:80px;padding-top:14px;resize:none;line-height:1.6;font-size:14px;">سفالگر و مربی کارگاه‌های خلق و هنر در تهران. بیش از ۵ سال تجربه تدریس.</textarea>
+      </div>
+      <div class="vd-field">
+        <label>شماره موبایل</label>
+        <div class="vd-input readonly">
+          <span style="direction:ltr;">۰۹۱۲ ۳۴۵ ۶۷۸۹</span>
+          <span class="vd-verified">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 7"/></svg>
+            تایید شده
+          </span>
+        </div>
+      </div>
+      <p class="field-hint">شماره موبایل قابل ویرایش نیست.</p>
+
+      <button class="vd-save" onclick="saveProfile()">ذخیره تغییرات</button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="vd-nav">
+      <div class="nav-item" onclick="showScreen('events')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+        <span>تجربه‌های من</span>
+      </div>
+      <div class="nav-item" onclick="showScreen('earnings')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16.5 15h.01"/></svg>
+        <span>درآمد</span>
+      </div>
+      <div class="nav-item active" onclick="showScreen('profile')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.4 3.8-5.2 7-5.2s6 1.8 7 5.2"/></svg>
+        <span>پروفایل</span>
+      </div>
+    </nav>
+  </div>
+
+</div><!-- /phone-shell -->
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────
+const UPCOMING = [
+  { img:'images/pottery-painting.jpeg', title:'سفالگری: نقاشی روی سفال', when:'پنجشنبه ۲۱ خرداد · ۱۱:۰۰', address:'خیابان توحید، کوچه گلستان ۳', status:'selling', statusLabel:'در حال فروش', fill:'۹ / ۱۲ رزرو', rating:'۴.۸', reviewCount:'۶۴' },
+  { img:'images/baking-class.jpeg', title:'شیرینی‌پزی فرانسوی', when:'پنجشنبه ۲۱ خرداد · ۱۴:۰۰', address:'بلوار ملت، کوچه شاد ۷', status:'selling', statusLabel:'در حال فروش', fill:'۱۰ / ۱۲ رزرو', rating:'۴.۷', reviewCount:'۳۸' },
+  { img:'images/flower-arranging.jpeg', title:'گل‌آرایی: ساخت جار گل', when:'جمعه ۲۲ خرداد · ۱۰:۰۰', address:'خیابان میرزای شیرازی، پلاک ۱۲', status:'full', statusLabel:'تکمیل ظرفیت', fill:'۱۲ / ۱۲ رزرو', rating:'۴.۹', reviewCount:'۱۱۲' },
+];
+const PAST = [
+  { img:'images/cake-making.jpeg', title:'کیک‌پزی خانگی', when:'جمعه ۱۵ خرداد · ۱۶:۰۰', address:'خیابان ونک، پاساژ آریا', status:'past', statusLabel:'برگزار شد', fill:'۱۲ شرکت‌کننده', rating:'۴.۸', reviewCount:'۱۲' },
+  { img:'images/pottery-painting.jpeg', title:'سفالگری: نقاشی روی سفال', when:'پنجشنبه ۱۴ خرداد · ۱۱:۰۰', address:'خیابان توحید، کوچه گلستان ۳', status:'past', statusLabel:'برگزار شد', fill:'۱۱ شرکت‌کننده', rating:'۴.۹', reviewCount:'۱۱' },
+];
+const ALL_EVENTS = [...UPCOMING, ...PAST];
+
+const ATTENDEES = [
+  { i:'س', name:'سارا محمدی', meta:'۲ بلیت · اولین بار', amount:'۱٬۷۰۰٬۰۰۰', since:'شهریور ۱۴۰۳', totalEvents:'۱', hours:'۲', neighborhoods:'۱', interests:['خلق و هنر'], pastEvents:[{img:'images/pottery-painting.jpeg',title:'سفالگری: نقاشی روی سفال',hood:'توحید',date:'۲۱ خرداد',rating:5}] },
+  { i:'ا', name:'امیر رضایی', meta:'۱ بلیت · ۳ تجربه قبلی', amount:'۸۵۰٬۰۰۰', since:'مهر ۱۴۰۳', totalEvents:'۴', hours:'۱۰', neighborhoods:'۳', interests:['حرکت','بازی','خلق و هنر'], pastEvents:[{img:'images/pottery-painting.jpeg',title:'سفالگری',hood:'توحید',date:'۱۴ خرداد',rating:5},{img:'images/climbing.jpeg',title:'سنگ‌نوردی سالنی',hood:'ولنجک',date:'۵ اردیبهشت',rating:4}] },
+  { i:'م', name:'مریم احمدی', meta:'۲ بلیت · ۱ تجربه قبلی', amount:'۱٬۷۰۰٬۰۰۰', since:'آذر ۱۴۰۳', totalEvents:'۲', hours:'۴', neighborhoods:'۲', interests:['خلق و هنر','آشپزی'], pastEvents:[{img:'images/cake-making.jpeg',title:'کیک‌پزی خانگی',hood:'ونک',date:'۱۵ خرداد',rating:4}] },
+  { i:'ن', name:'نیما کریمی', meta:'۱ بلیت · اولین بار', amount:'۸۵۰٬۰۰۰', since:'خرداد ۱۴۰۴', totalEvents:'۱', hours:'۲', neighborhoods:'۱', interests:['خلق و هنر'], pastEvents:[] },
+  { i:'پ', name:'پریسا نوری', meta:'۲ بلیت · ۵ تجربه قبلی', amount:'۱٬۷۰۰٬۰۰۰', since:'دی ۱۴۰۲', totalEvents:'۶', hours:'۱۵', neighborhoods:'۴', interests:['خلق و هنر','آشپزی','حرکت'], pastEvents:[{img:'images/pottery-painting.jpeg',title:'سفالگری',hood:'توحید',date:'۱۴ خرداد',rating:5},{img:'images/baking-class.jpeg',title:'شیرینی‌پزی فرانسوی',hood:'نارمک',date:'۲ خرداد',rating:5}] },
+  { i:'ح', name:'حامد عباسی', meta:'۱ بلیت · اولین بار', amount:'۸۵۰٬۰۰۰', since:'اردیبهشت ۱۴۰۴', totalEvents:'۱', hours:'۲', neighborhoods:'۱', interests:['بازی'], pastEvents:[] },
+];
+
+const REVIEWS = [
+  { id:0, av:'پ', name:'پریسا نوری', rating:5, ago:'۳ روز پیش', body:'نگار خانم میزبان فوق‌العاده‌ای بود! همه‌چیز کامل بود، حتماً دوباره شرکت می‌کنم.', img:'images/pottery-painting.jpeg', expTitle:'سفالگری: نقاشی روی سفال', expDate:'۱۴ خرداد', hostReply:'' },
+  { id:1, av:'ا', name:'امیر رضایی', rating:4, ago:'۵ روز پیش', body:'خیلی خوش گذشت، فقط کاش وقت بیشتری داشتیم برای کار روی سفال.', img:'images/pottery-painting.jpeg', expTitle:'سفالگری: نقاشی روی سفال', expDate:'۱۴ خرداد', hostReply:'ممنون از نظرت امیرجان! حق با توئه، دفعه بعد ۳۰ دقیقه بیشتر وقت می‌ذاریم. 🙏' },
+  { id:2, av:'م', name:'مریم احمدی', rating:5, ago:'۱ هفته پیش', body:'تجربه‌ی بینظیری بود، محل برگزاری هم خیلی قشنگ بود.', img:'images/pottery-painting.jpeg', expTitle:'سفالگری: نقاشی روی سفال', expDate:'۱۴ خرداد', hostReply:'' },
+];
+
+const MONTHS = [
+  {m:'دی',h:31,amt:'۹.۲'},{m:'بهمن',h:42,amt:'۱۲.۶'},{m:'اسفند',h:37,amt:'۱۱.۱'},
+  {m:'فروردین',h:24,amt:'۷.۳'},{m:'اردیبهشت',h:55,amt:'۱۶.۴'},{m:'خرداد',h:72,amt:'۲۱.۳',now:true},
+];
+const BREAKDOWN = [
+  {img:'images/pottery-painting.jpeg',title:'سفالگری: نقاشی روی سفال',meta:'۸ جلسه · ۸۹ شرکت‌کننده',amount:'۲۸٬۹۰۰٬۰۰۰ ت'},
+  {img:'images/baking-class.jpeg',title:'شیرینی‌پزی فرانسوی',meta:'۶ جلسه · ۶۴ شرکت‌کننده',amount:'۲۲٬۴۰۰٬۰۰۰ ت'},
+  {img:'images/flower-arranging.jpeg',title:'گل‌آرایی: ساخت جار گل',meta:'۵ جلسه · ۵۲ شرکت‌کننده',amount:'۱۸٬۲۰۰٬۰۰۰ ت'},
+  {img:'images/cake-making.jpeg',title:'کیک‌پزی خانگی',meta:'۴ جلسه · ۴۱ شرکت‌کننده',amount:'۱۲٬۸۰۰٬۰۰۰ ت'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────
+let currentScreen = 'events';
+let currentSeg = 'upcoming';
+let currentTab = 'atts';
+
+// ── NAVIGATION ────────────────────────────────────────────────────
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'slide-left');
+  });
+  document.getElementById('screen-' + name).classList.add('active');
+  currentScreen = name;
+}
+
+function showDetail(ev) {
+  document.getElementById('detail-img').src = ev.img;
+  document.getElementById('detail-title').textContent = ev.title;
+  document.getElementById('detail-when').textContent = ev.when;
+  renderAttendees();
+  renderReviews();
+  switchTab('atts');
+  showScreen('detail');
+}
+
+function goBack() {
+  showScreen(currentScreen === 'detail' ? 'events' : 'events');
+}
+
+// ── EVENTS SCREEN ─────────────────────────────────────────────────
+function renderEventList(evs, container) {
+  container.innerHTML = '';
+  evs.forEach(ev => {
+    const d = document.createElement('div');
+    d.className = 'hcard';
+    d.innerHTML = `
+      <div class="hcard-img"><img src="${ev.img}" alt="${ev.title}"></div>
+      <div class="hcard-body">
+        <div class="hcard-title">${ev.title}</div>
+        <div class="hcard-when">${ev.when}</div>
+        ${ev.address ? `<div class="hcard-addr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>${ev.address}</div>` : ''}
+        ${ev.rating != null ? `<div class="hcard-rating"><span class="star">★</span><span class="val">${ev.rating}</span>${ev.reviewCount ? `<span class="n">(${ev.reviewCount} نظر)</span>` : ''}</div>` : ''}
+      </div>
+      <div class="hcard-end">
+        <span class="status-chip ${ev.status}">${ev.statusLabel}</span>
+        <span class="fill-meter">${ev.fill}</span>
+      </div>`;
+    d.onclick = () => showDetail(ev);
+    container.appendChild(d);
+  });
+}
+
+function switchSeg(seg) {
+  currentSeg = seg;
+  document.getElementById('seg-upcoming').classList.toggle('active', seg === 'upcoming');
+  document.getElementById('seg-past').classList.toggle('active', seg === 'past');
+  renderCurrentSeg();
+}
+
+function renderCurrentSeg() {
+  const list = document.getElementById('events-list');
+  list.innerHTML = '';
+  if (currentSeg === 'upcoming') {
+    const sec = document.createElement('div');
+    sec.className = 'sec-label'; sec.textContent = 'این هفته';
+    list.appendChild(sec);
+    renderEventList(UPCOMING, list);
+    const sec2 = document.createElement('div');
+    sec2.className = 'sec-label'; sec2.textContent = 'برگزارشده اخیر';
+    list.appendChild(sec2);
+    renderEventList(PAST, list);
+  } else {
+    renderEventList(PAST, list);
+  }
+}
+
+// ── SEARCH ────────────────────────────────────────────────────────
+const searchInput = document.getElementById('search-input');
+const searchBar = document.getElementById('host-search');
+const searchCancel = document.getElementById('search-cancel');
+const searchResults = document.getElementById('search-results');
+const eventsContent = document.getElementById('events-content');
+const subtitle = document.getElementById('events-subtitle');
+
+searchInput.addEventListener('focus', () => {
+  searchBar.classList.add('focused');
+  searchCancel.style.display = 'block';
+  subtitle.style.display = 'none';
+  document.getElementById('search-icon').setAttribute('stroke', '#2A76BE');
+});
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  if (q) {
+    const filtered = ALL_EVENTS.filter(e => e.title.includes(q) || e.address.includes(q));
+    eventsContent.style.display = 'none';
+    searchResults.style.display = 'block';
+    searchResults.innerHTML = `<div class="sec-label">${filtered.length} نتیجه</div>`;
+    if (filtered.length === 0) {
+      searchResults.innerHTML += '<div class="host-empty">نتیجه‌ای پیدا نشد</div>';
+    } else {
+      renderEventList(filtered, searchResults);
+    }
+  } else {
+    eventsContent.style.display = 'flex';
+    searchResults.style.display = 'none';
+  }
+});
+
+searchCancel.addEventListener('click', () => {
+  searchInput.value = '';
+  searchBar.classList.remove('focused');
+  searchCancel.style.display = 'none';
+  subtitle.style.display = '';
+  document.getElementById('search-icon').setAttribute('stroke', '#7A8A9B');
+  eventsContent.style.display = 'flex';
+  searchResults.style.display = 'none';
+  searchInput.blur();
+});
+
+// ── DETAIL TABS ───────────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-atts').classList.toggle('on', tab === 'atts');
+  document.getElementById('tab-reviews').classList.toggle('on', tab === 'reviews');
+  document.getElementById('tab-content-atts').style.display = tab === 'atts' ? 'block' : 'none';
+  document.getElementById('tab-content-reviews').style.display = tab === 'reviews' ? 'block' : 'none';
+}
+
+function renderAttendees() {
+  const c = document.getElementById('tab-content-atts');
+  c.innerHTML = '';
+  ATTENDEES.forEach((a, i) => {
+    const d = document.createElement('div');
+    d.className = 'att-row';
+    d.innerHTML = `
+      <div class="att-avatar">${a.i}</div>
+      <div class="att-body">
+        <div class="att-name">${a.name}</div>
+        <div class="att-meta">${a.meta}</div>
+      </div>
+      <span class="att-amount">${a.amount}</span>
+      <div class="att-chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg></div>`;
+    d.onclick = () => openAttSheet(a);
+    c.appendChild(d);
+  });
+}
+
+function renderReviews() {
+  const c = document.getElementById('tab-content-reviews');
+  c.innerHTML = '';
+  const unanswered = REVIEWS.filter(r => !r.hostReply).length;
+  document.getElementById('unanswered-badge').textContent = unanswered;
+  document.getElementById('unanswered-badge').style.display = unanswered > 0 ? 'inline' : 'none';
+
+  REVIEWS.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'hrv-card';
+    d.innerHTML = `
+      <div class="hrv-card-top">
+        <div class="hrv-av">${r.av}</div>
+        <div><div class="hrv-name">${r.name}</div><div class="hrv-date">${r.ago}</div></div>
+        <div class="hrv-stars">${'★'.repeat(r.rating)}</div>
+      </div>
+      <p class="hrv-body">«${r.body}»</p>
+      <div class="hrv-foot">
+        ${r.hostReply
+          ? `<div class="hrv-replied"><span>↩</span> پاسخ شما ثبت شده</div>`
+          : `<span class="hrv-badge">بدون پاسخ</span>`}
+        <button class="hrv-cta">${r.hostReply ? 'ویرایش پاسخ' : '↩ پاسخ دادن'}</button>
+      </div>`;
+    d.onclick = () => openRevSheet(r);
+    c.appendChild(d);
+  });
+}
+
+// ── ATTENDEE SHEET ─────────────────────────────────────────────────
+function openAttSheet(att) {
+  const body = document.getElementById('att-sheet-body');
+  const stars = n => '★'.repeat(n);
+  body.innerHTML = `
+    <div class="hap-hero">
+      <div class="hap-avatar">${att.i}</div>
+      <div class="hap-name">${att.name}</div>
+      <div class="hap-since">عضو از ${att.since}</div>
+      <div class="hap-stats">
+        <div class="hap-stat"><div class="v">${att.totalEvents}</div><div class="k">تجربه</div></div>
+        <div class="hap-stat"><div class="v">${att.hours}<span class="u">ساعت</span></div><div class="k">وقت گذرونده</div></div>
+        <div class="hap-stat"><div class="v">${att.neighborhoods}</div><div class="k">محله</div></div>
+      </div>
+    </div>
+    <div class="hap-tags">${att.interests.map(t => `<span class="hap-tag">${t}</span>`).join('')}</div>
+    <div class="hap-sec">تجربه‌های گذشته · ${att.pastEvents.length} تجربه</div>
+    ${att.pastEvents.length === 0
+      ? '<div class="hap-no-events">هنوز تجربه‌ای ندارد</div>'
+      : att.pastEvents.map(ev => `
+        <div class="hap-ev">
+          <div class="hap-ev-img"><img src="${ev.img}" alt="${ev.title}"></div>
+          <div>
+            <div class="hap-ev-title">${ev.title}</div>
+            <div class="hap-ev-meta">${ev.hood} · ${ev.date}</div>
+          </div>
+          <div class="hap-ev-stars">${stars(ev.rating)}</div>
+        </div>`).join('')}`;
+  openSheet('att');
+}
+
+// ── REVIEW SHEET ──────────────────────────────────────────────────
+let currentReview = null;
+
+function openRevSheet(r) {
+  currentReview = r;
+  renderRevSheet();
+  openSheet('rev');
+}
+
+function renderRevSheet() {
+  const r = currentReview;
+  const body = document.getElementById('rev-sheet-body');
+  body.innerHTML = `
+    <div class="hrv-who">
+      <div class="hrv-who-av">${r.av}</div>
+      <div><div class="hrv-who-name">${r.name}</div><div class="hrv-who-date">${r.ago}</div></div>
+      <div class="hrv-who-stars">${'★'.repeat(r.rating)}</div>
+    </div>
+    <p class="hrv-sheet-body-text">«${r.body}»</p>
+    <div class="hrv-exp">
+      <div class="hrv-exp-img"><img src="${r.img}" alt=""></div>
+      <div>
+        <div class="hrv-exp-title">${r.expTitle}</div>
+        <div class="hrv-exp-date">${r.expDate}</div>
+      </div>
+    </div>
+    <div class="hrv-reply-label">${r.hostReply ? 'پاسخ شما' : 'پاسخ به این دیدگاه'}</div>
+    ${r.hostReply
+      ? `<div class="hrv-saved-block">${r.hostReply}</div>
+         <button class="hrv-edit-btn" onclick="editReply()">ویرایش پاسخ</button>`
+      : `<textarea class="hrv-textarea" id="reply-textarea" rows="4" placeholder="پاسخت رو بنویس… شرکت‌کنندگان دیگر هم این پاسخ رو می‌بینن."></textarea>
+         <button class="hrv-send" id="reply-send" disabled onclick="sendReply()">ارسال پاسخ</button>`}`;
+
+  const ta = document.getElementById('reply-textarea');
+  const btn = document.getElementById('reply-send');
+  if (ta && btn) {
+    ta.addEventListener('input', () => { btn.disabled = !ta.value.trim(); });
+  }
+}
+
+function sendReply() {
+  const ta = document.getElementById('reply-textarea');
+  if (!ta || !ta.value.trim()) return;
+  currentReview.hostReply = ta.value.trim();
+  renderRevSheet();
+  renderReviews();
+}
+
+function editReply() {
+  currentReview.hostReply = '';
+  renderRevSheet();
+}
+
+// ── SHEET OPEN/CLOSE ──────────────────────────────────────────────
+function openSheet(name) {
+  document.getElementById(name + '-sheet-overlay').classList.add('open');
+}
+function closeSheet(name) {
+  document.getElementById(name + '-sheet-overlay').classList.remove('open');
+}
+
+// ── WITHDRAW ──────────────────────────────────────────────────────
+function openWithdraw() {
+  document.getElementById('withdraw-form').style.display = 'block';
+  document.getElementById('withdraw-success').style.display = 'none';
+  openSheet('withdraw');
+}
+function doWithdraw() {
+  document.getElementById('withdraw-form').style.display = 'none';
+  document.getElementById('withdraw-success').style.display = 'block';
+}
+
+// ── EARNINGS SCREEN ───────────────────────────────────────────────
+function renderEarnings() {
+  const chart = document.getElementById('earnings-chart');
+  chart.innerHTML = MONTHS.map(mo => `
+    <div class="chart-col${mo.now ? ' now' : ''}">
+      <div class="chart-amt">${mo.amt}</div>
+      <div class="chart-bar" style="height:${mo.h}%"></div>
+      <div class="chart-m">${mo.m}</div>
+    </div>`).join('');
+
+  const bd = document.getElementById('earnings-breakdown');
+  bd.innerHTML = BREAKDOWN.map(b => `
+    <div class="earn-card">
+      <div class="earn-img"><img src="${b.img}" alt="${b.title}"></div>
+      <div class="earn-body">
+        <div class="earn-title">${b.title}</div>
+        <div class="earn-meta">${b.meta}</div>
+      </div>
+      <div class="earn-amount">${b.amount}</div>
+    </div>`).join('');
+}
+
+// ── PROFILE SAVE ──────────────────────────────────────────────────
+function saveProfile() {
+  const btn = document.querySelector('.vd-save');
+  btn.textContent = '✓ ذخیره شد';
+  btn.style.background = '#2C7B50';
+  setTimeout(() => {
+    btn.textContent = 'ذخیره تغییرات';
+    btn.style.background = '';
+  }, 2000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+renderCurrentSeg();
+renderAttendees();
+renderReviews();
+renderEarnings();
+</script>
+</body>
+</html>

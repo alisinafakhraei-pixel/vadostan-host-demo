@@ -204,15 +204,23 @@ body {
 
 /* ── Bottom Nav ── */
 .vd-nav {
-  position: absolute;
+  position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 76px;
+  height: auto;
   border-top: 1px solid var(--vd-line);
   background: rgba(255,255,255,.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 10px 12px 20px;
-  flex: none;
+  padding: 10px 12px env(safe-area-inset-bottom, 16px);
+  z-index: 50;
+}
+@media (min-width: 500px) {
+  .vd-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+  }
 }
 .nav-item {
   display: flex; flex-direction: column; align-items: center; gap: 4px;
